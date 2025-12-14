@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex | Gotta Catch 'Em All</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="A retro Pokédex that actually works. Browse all 151 original Pokémon with stats, types, and cries. No Professor Oak required.">
+    <meta name="keywords" content="pokedex, pokemon, retro, kanto, original 151">
+    <meta name="author" content="Mr-Neutr0n">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Pokédex | Gotta Catch 'Em All">
+    <meta property="og:description" content="A retro Pokédex that actually works. Browse all 151 original Pokémon. No Professor Oak required.">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Pokédex | Retro Edition">
+    <meta name="twitter:description" content="Finally, a Pokédex in your browser. Try finding MissingNo 👀">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background">
+        <div class="pokedex-wrapper">
+            <!-- Pokedex Device Image -->
+            <img src="Pokedex_transparent.png" alt="Pokédex" class="pokedex-image">
+            
+            <!-- Screen Overlay -->
+            <div class="screen-overlay">
+                <!-- Loading State -->
+                <div class="loading-state" id="loading">
+                    <div class="pokeball-spinner"></div>
+                    <p>Loading...</p>
+                </div>
+                
+                <!-- Pokemon Display -->
+                <div class="pokemon-display" id="pokemonDisplay">
+                    <!-- Header -->
+                    <div class="pokemon-header">
+                        <span class="pokemon-number" id="pokemonNumber">#001</span>
+                        <span class="pokemon-name" id="pokemonName">BULBASAUR</span>
+                        <div class="pokemon-types" id="pokemonTypes"></div>
+                    </div>
+                    
+                    <!-- Main Content -->
+                    <div class="pokemon-content">
+                        <!-- Sprite -->
+                        <div class="pokemon-sprite-container">
+                            <img src="" alt="" class="pokemon-sprite" id="pokemonSprite">
+                            <button class="cry-button" id="cryButton" aria-label="Play cry">
+                                🔊
+                            </button>
+                        </div>
+                        
+                        <!-- Stats -->
+                        <div class="pokemon-stats" id="pokemonStats">
+                            <div class="stat-row">
+                                <span class="stat-label">HP</span>
+                                <div class="stat-bar"><div class="stat-fill" data-stat="hp"></div></div>
+                                <span class="stat-value" data-stat="hp">0</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">ATK</span>
+                                <div class="stat-bar"><div class="stat-fill" data-stat="attack"></div></div>
+                                <span class="stat-value" data-stat="attack">0</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">DEF</span>
+                                <div class="stat-bar"><div class="stat-fill" data-stat="defense"></div></div>
+                                <span class="stat-value" data-stat="defense">0</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">SPD</span>
+                                <div class="stat-bar"><div class="stat-fill" data-stat="speed"></div></div>
+                                <span class="stat-value" data-stat="speed">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Flavor Text -->
+                    <div class="pokemon-description" id="pokemonDescription">
+                        A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.
+                    </div>
+                </div>
+                
+                <!-- Error State -->
+                <div class="error-state" id="errorState">
+                    <div class="error-icon">❓</div>
+                    <p>Pokemon not found!</p>
+                </div>
+                
+                <!-- MissingNo Easter Egg -->
+                <div class="missingno-state" id="missingnoState">
+                    <div class="glitch-container">
+                        <div class="glitch-text">MɨSSɨNGNO.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Controls Overlay -->
+            <div class="controls-overlay">
+                <!-- D-Pad -->
+                <div class="dpad">
+                    <button class="dpad-btn dpad-up" id="btnUp" aria-label="Previous Pokemon">▲</button>
+                    <button class="dpad-btn dpad-left" id="btnLeft" aria-label="Previous 10">◀</button>
+                    <button class="dpad-btn dpad-center"></button>
+                    <button class="dpad-btn dpad-right" id="btnRight" aria-label="Next 10">▶</button>
+                    <button class="dpad-btn dpad-down" id="btnDown" aria-label="Next Pokemon">▼</button>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="action-btn btn-a" id="btnA" aria-label="Select">A</button>
+                    <button class="action-btn btn-b" id="btnB" aria-label="Back">B</button>
+                </div>
+            </div>
+            
+            <!-- Search Input (hidden, activated by A button) -->
+            <div class="search-overlay" id="searchOverlay">
+                <input type="text" id="searchInput" placeholder="Enter name or #..." maxlength="20" autocomplete="off">
+                <div class="search-hint">Press Enter or A to search</div>
+            </div>
+        </div>
+        
+        <!-- Navigation Hint -->
+        <div class="nav-hint">
+            <span>▲▼ Navigate</span>
+            <span>◀▶ Skip 10</span>
+            <span>A Search</span>
+            <span>B Random</span>
+        </div>
+    </div>
+    
+    <!-- Audio element for Pokemon cries -->
+    <audio id="pokemonCry" preload="none"></audio>
+    
+    <script src="script.js"></script>
+</body>
+</html>
+
