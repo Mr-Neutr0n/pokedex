@@ -61,7 +61,20 @@ class Pokedex {
         
         // Action buttons
         this.elements.btnA.addEventListener('click', () => this.toggleSearch());
-        this.elements.btnB.addEventListener('click', () => this.randomPokemon());
+        this.elements.btnB.addEventListener('click', () => {
+            // B closes search if open, otherwise random Pokemon
+            if (this.isSearchOpen) {
+                this.closeSearch();
+            } else {
+                this.randomPokemon();
+            }
+        });
+        
+        // Search submit button (the GO button)
+        const searchSubmit = document.getElementById('searchSubmit');
+        if (searchSubmit) {
+            searchSubmit.addEventListener('click', () => this.search());
+        }
         
         // Cry button
         this.elements.cryButton.addEventListener('click', () => this.playCry());
@@ -176,7 +189,13 @@ class Pokedex {
     
     toggleSearch() {
         if (this.isSearchOpen) {
-            this.closeSearch();
+            // If search is open and has input, submit instead of closing
+            const query = this.elements.searchInput.value.trim();
+            if (query) {
+                this.search();
+            } else {
+                this.closeSearch();
+            }
         } else {
             this.openSearch();
         }
@@ -186,7 +205,8 @@ class Pokedex {
         this.isSearchOpen = true;
         this.elements.searchOverlay.classList.add('show');
         this.elements.searchInput.value = '';
-        this.elements.searchInput.focus();
+        // Small delay to ensure overlay is visible before focusing
+        setTimeout(() => this.elements.searchInput.focus(), 50);
     }
     
     closeSearch() {
@@ -197,7 +217,11 @@ class Pokedex {
     
     async search() {
         const query = this.elements.searchInput.value.trim().toLowerCase();
-        if (!query) return;
+        
+        if (!query) {
+            this.closeSearch();
+            return;
+        }
         
         this.closeSearch();
         
@@ -492,6 +516,10 @@ class Pokedex {
 // ═══════════════════════════════════════════════════════════════
 
 document.addEventListener('DOMContentLoaded', () => {
+    // #region agent log - Debug positioning
+    // Debug logging removed - using visual debugging with colored overlays
+    // #endregion
+    
     new Pokedex();
 });
 

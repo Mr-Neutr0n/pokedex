@@ -78,7 +78,7 @@ body {
 .pokedex-wrapper {
     position: relative;
     width: 100%;
-    max-width: 380px;
+    max-width: 650px;
     transition: transform 0.1s ease;
 }
 
@@ -108,14 +108,14 @@ body {
 
 .screen-overlay {
     position: absolute;
-    /* Adjust these to match your Pokedex image screen position */
-    top: 18%;
-    left: 12%;
-    right: 12%;
-    height: 42%;
+    /* Fine-tuned to fit black screen area */
+    top: 17.75%;
+    left: 31.5%;
+    right: 31.5%;
+    height: 32.25%;
     background: var(--lcd-bg);
-    border-radius: 8px;
-    padding: 12px;
+    border-radius: 6.5%; 
+    padding: 8px;
     overflow: hidden;
     
     /* LCD Screen Effect */
@@ -127,6 +127,7 @@ body {
     background-image: 
         linear-gradient(var(--lcd-bg) 50%, var(--lcd-bg-dark) 50%);
     background-size: 100% 4px;
+
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -504,85 +505,123 @@ body {
    ───────────────────────────────────────────────────────────── */
 
 .controls-overlay {
-    position: absolute;
-    /* Adjust to match your Pokedex image button positions */
-    bottom: 8%;
-    left: 10%;
-    right: 10%;
-    height: 25%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    pointer-events: none;
+    display: none; /* No longer needed - buttons positioned directly in wrapper */
 }
 
-/* D-Pad */
+/* D-Pad - positioned relative to wrapper */
 .dpad {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    width: 100px;
-    height: 100px;
-    pointer-events: auto;
+    position: absolute;
+    top: 55%;
+    left: 32.5%;
+    width: 10.5%;
+    height: 10.5%;
+    pointer-events: none; /* Container doesn't capture clicks */
+    border-radius: 50%;
 }
 
+/* Option C: Large overlapping touch areas for each direction */
 .dpad-btn {
+    position: absolute;
     background: transparent;
     border: none;
     color: transparent;
     cursor: pointer;
-    font-size: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.1s ease;
-    border-radius: 4px;
+    pointer-events: auto; /* Each button captures clicks */
+    
+    /* DEBUG: Show button areas */
+    /* background: rgba(255, 0, 0, 0.3); */
 }
 
 .dpad-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.4);
 }
 
 .dpad-btn:active {
-    background: rgba(0, 0, 0, 0.2);
-    transform: scale(0.9);
+    background: rgba(0, 0, 0, 0.25);
 }
 
-.dpad-up { grid-column: 2; grid-row: 1; }
-.dpad-left { grid-column: 1; grid-row: 2; }
-.dpad-center { grid-column: 2; grid-row: 2; cursor: default; }
-.dpad-right { grid-column: 3; grid-row: 2; }
-.dpad-down { grid-column: 2; grid-row: 3; }
+/* UP button - top half, centered horizontally */
+.dpad-up {
+    top: 0;
+    left: 20%;
+    width: 60%;
+    height: 45%;
+    border-radius: 50% 50% 0 0;
+}
 
-/* Action Buttons */
+/* DOWN button - bottom half, centered horizontally */
+.dpad-down {
+    bottom: 0;
+    left: 20%;
+    width: 60%;
+    height: 45%;
+    border-radius: 0 0 50% 50%;
+}
+
+/* LEFT button - left half, centered vertically */
+.dpad-left {
+    top: 20%;
+    left: 0;
+    width: 45%;
+    height: 60%;
+    border-radius: 50% 0 0 50%;
+}
+
+/* RIGHT button - right half, centered vertically */
+.dpad-right {
+    top: 20%;
+    right: 0;
+    width: 45%;
+    height: 60%;
+    border-radius: 0 50% 50% 0%;
+}
+
+/* Center is non-interactive, purely visual if needed */
+.dpad-center {
+    display: none;
+}
+
+/* Action Buttons container - just for grouping, no sizing */
 .action-buttons {
-    display: flex;
-    gap: 15px;
+    display: contents; /* Makes children act as if they're direct children of wrapper */
     pointer-events: auto;
 }
 
+/* Each button positioned absolutely relative to wrapper */
 .action-btn {
-    width: 45px;
-    height: 45px;
+    position: absolute;
+    width: 5.25%;
+    aspect-ratio: 1;
     border-radius: 50%;
     border: none;
     background: transparent;
-    color: transparent;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 0.8rem;
+    font-family: 'VT323', monospace;
+    font-size: clamp(0.8rem, 2.2vw, 1.1rem);
+    font-weight: bold;
     cursor: pointer;
-    transition: all 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
 }
 
-.action-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.3);
+/* A button - red/maroon color */
+.btn-a {
+    top: 58.75%;
+    left: 55.65%;
+    color: #8B0000; /* Dark red */
 }
 
-.action-btn:active {
-    background: rgba(0, 0, 0, 0.2);
-    transform: scale(0.9);
+/* B button - same red/maroon color */
+.btn-b {
+    top: 55.45%;
+    left: 62.95%;
+    color: #8B0000; /* Dark red */
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -591,18 +630,19 @@ body {
 
 .search-overlay {
     position: absolute;
-    top: 18%;
-    left: 12%;
-    right: 12%;
-    height: 42%;
+    /* Cover the entire screen area */
+    top: 17.75%;
+    left: 31.5%;
+    right: 31.5%;
+    height: 32.25%;
     background: var(--lcd-bg);
-    border-radius: 8px;
+    border-radius: 6.5%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 15px;
-    z-index: 20;
+    gap: 8px;
+    z-index: 25;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s ease;
@@ -613,39 +653,71 @@ body {
 .search-overlay.show {
     opacity: 1;
     pointer-events: auto;
+    transform: scale(1);
 }
 
 .search-overlay input {
-    font-family: 'Press Start 2P', cursive;
-    font-size: 0.8rem;
-    padding: 12px 16px;
-    border: 3px solid var(--lcd-text);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.3);
+    font-family: 'VT323', monospace;
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    padding: 8px 12px;
+    border: 2px solid var(--lcd-text);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
     color: var(--lcd-text-dark);
     text-align: center;
-    width: 80%;
-    max-width: 200px;
+    width: 70%;
+    max-width: 160px;
     outline: none;
     text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .search-overlay input::placeholder {
     color: var(--lcd-text);
     opacity: 0.5;
     text-transform: none;
+    font-size: 0.9em;
 }
 
 .search-overlay input:focus {
     border-color: var(--lcd-text-dark);
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.search-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.search-submit {
+    font-family: 'VT323', monospace;
+    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+    padding: 4px 16px;
+    border: 2px solid var(--lcd-text-dark);
+    border-radius: 4px;
+    background: var(--lcd-text);
+    color: var(--lcd-bg);
+    cursor: pointer;
+    transition: all 0.1s ease;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.search-submit:hover {
+    background: var(--lcd-text-dark);
+    transform: translateY(-1px);
+}
+
+.search-submit:active {
+    transform: translateY(1px);
 }
 
 .search-hint {
-    font-family: 'Press Start 2P', cursive;
-    font-size: 0.5rem;
+    font-family: 'VT323', monospace;
+    font-size: clamp(0.6rem, 1.8vw, 0.8rem);
     color: var(--lcd-text);
-    opacity: 0.6;
+    opacity: 0.7;
+    letter-spacing: 0.5px;
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -722,46 +794,150 @@ body {
    RESPONSIVE
    ───────────────────────────────────────────────────────────── */
 
-@media (max-width: 400px) {
+/* Mobile: Option E Hybrid - Compact sprite + stats, no description */
+@media (max-width: 500px) {
     .pokedex-wrapper {
-        max-width: 320px;
+        max-width: 380px;
+    }
+    
+    /* Screen content adjustments */
+    .screen-overlay {
+        padding: 5px;
+    }
+    
+    .pokemon-display {
+        gap: 4px;
+    }
+    
+    /* Header: smaller, tighter */
+    .pokemon-header {
+        gap: 4px;
+    }
+    
+    .pokemon-number {
+        font-size: 0.45rem;
     }
     
     .pokemon-name {
-        font-size: 0.6rem;
+        font-size: 0.55rem;
+    }
+    
+    .type-badge {
+        font-size: 0.35rem;
+        padding: 2px 4px;
+    }
+    
+    /* Content: smaller sprite */
+    .pokemon-content {
+        gap: 6px;
     }
     
     .pokemon-sprite-container {
-        width: 70px;
-        height: 70px;
+        width: 55px;
+        height: 55px;
     }
     
     .pokemon-sprite {
-        width: 60px;
-        height: 60px;
+        width: 48px;
+        height: 48px;
+    }
+    
+    .cry-button {
+        width: 18px;
+        height: 18px;
+        font-size: 0.5rem;
+    }
+    
+    /* Stats: compact */
+    .pokemon-stats {
+        gap: 3px;
+    }
+    
+    .stat-row {
+        gap: 3px;
     }
     
     .stat-label {
-        font-size: 0.4rem;
-        width: 24px;
+        font-size: 0.35rem;
+        width: 20px;
     }
     
+    .stat-bar {
+        height: 5px;
+    }
+    
+    .stat-value {
+        font-size: 0.35rem !important;
+        min-width: 16px !important;
+    }
+    
+    /* Hide description on mobile - key part of Option E */
     .pokemon-description {
-        font-size: 0.75rem;
+        display: none;
     }
     
+    /* Search overlay - mobile optimized */
+    /* Search overlay - same positioning as screen, fully covers it */
+    .search-overlay {
+        gap: 6px;
+        padding: 6px;
+    }
+    
+    .search-overlay input {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+        width: 80%;
+        max-width: 140px;
+    }
+    
+    .search-submit {
+        padding: 4px 14px;
+        font-size: 0.9rem;
+    }
+    
+    .search-hint {
+        font-size: 0.55rem;
+    }
+    
+    /* Nav hint */
     .nav-hint {
-        gap: 10px;
+        gap: 8px;
     }
     
     .nav-hint span {
-        font-size: 0.4rem;
+        font-size: 0.35rem;
     }
 }
 
-@media (min-width: 500px) {
+/* Very small phones */
+@media (max-width: 360px) {
     .pokedex-wrapper {
-        max-width: 420px;
+        max-width: 300px;
+    }
+    
+    .pokemon-sprite-container {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .pokemon-sprite {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .stat-label {
+        font-size: 0.3rem;
+        width: 18px;
+    }
+    
+    .stat-bar {
+        height: 4px;
+    }
+}
+
+@media (min-width: 800px) {
+    .pokedex-wrapper {
+        max-width: 700px;
     }
     
     .pokemon-description {

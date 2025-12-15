@@ -31,7 +31,7 @@
     <div class="background">
         <div class="pokedex-wrapper">
             <!-- Pokedex Device Image -->
-            <img src="Pokedex_transparent.png" alt="Pokédex" class="pokedex-image">
+            <img src="Pokemon_Transparent.png" alt="Pokédex" class="pokedex-image">
             
             <!-- Screen Overlay -->
             <div class="screen-overlay">
@@ -56,7 +56,9 @@
                         <div class="pokemon-sprite-container">
                             <img src="" alt="" class="pokemon-sprite" id="pokemonSprite">
                             <button class="cry-button" id="cryButton" aria-label="Play cry">
-                                🔊
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                                </svg>
                             </button>
                         </div>
                         
@@ -105,28 +107,27 @@
                 </div>
             </div>
             
-            <!-- Controls Overlay -->
-            <div class="controls-overlay">
-                <!-- D-Pad -->
-                <div class="dpad">
-                    <button class="dpad-btn dpad-up" id="btnUp" aria-label="Previous Pokemon">▲</button>
-                    <button class="dpad-btn dpad-left" id="btnLeft" aria-label="Previous 10">◀</button>
-                    <button class="dpad-btn dpad-center"></button>
-                    <button class="dpad-btn dpad-right" id="btnRight" aria-label="Next 10">▶</button>
-                    <button class="dpad-btn dpad-down" id="btnDown" aria-label="Next Pokemon">▼</button>
-                </div>
-                
-                <!-- Action Buttons -->
-                <div class="action-buttons">
-                    <button class="action-btn btn-a" id="btnA" aria-label="Select">A</button>
-                    <button class="action-btn btn-b" id="btnB" aria-label="Back">B</button>
-                </div>
+            <!-- D-Pad - Option C: Large overlapping touch areas -->
+            <div class="dpad">
+                <button class="dpad-btn dpad-up" id="btnUp" aria-label="Previous Pokemon">▲</button>
+                <button class="dpad-btn dpad-down" id="btnDown" aria-label="Next Pokemon">▼</button>
+                <button class="dpad-btn dpad-left" id="btnLeft" aria-label="Previous 10">◀</button>
+                <button class="dpad-btn dpad-right" id="btnRight" aria-label="Next 10">▶</button>
+            </div>
+            
+            <!-- Action Buttons - positioned directly in wrapper -->
+            <div class="action-buttons">
+                <button class="action-btn btn-a" id="btnA" aria-label="Select">A</button>
+                <button class="action-btn btn-b" id="btnB" aria-label="Back">B</button>
             </div>
             
             <!-- Search Input (hidden, activated by A button) -->
             <div class="search-overlay" id="searchOverlay">
-                <input type="text" id="searchInput" placeholder="Enter name or #..." maxlength="20" autocomplete="off">
-                <div class="search-hint">Press Enter or A to search</div>
+                <input type="text" id="searchInput" placeholder="Name or #..." maxlength="15" autocomplete="off" inputmode="search" enterkeyhint="search">
+                <div class="search-actions">
+                    <button class="search-submit" id="searchSubmit" aria-label="Search">GO</button>
+                </div>
+                <div class="search-hint">Enter or tap GO • B to cancel</div>
             </div>
         </div>
         
